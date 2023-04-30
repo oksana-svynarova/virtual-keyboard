@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap");
+
+.container {
+  height: 100vh;
+  background: url(https://txtrs.ru/textures/wood/wood-22-1.jpg);
+  font-family: "Lato", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.title {
+  color: #ffffff;
+  font-size: 52px;
+  margin-bottom: 30px;
+}
+
+.textarea {
+  max-width: 1000px;
+  width: 100%;
+  height: 180px;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  font-size: 26px;
+  background-color: #323232;
+  color: #ffffff;
+  padding-left: 10px;
+  padding-top: 10px;
+  border: 2px solid #222222;
+  border-radius: 5px;
+}
+
+.text {
+  color: #ffffff;
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.wrapper {
+  max-width: 1008px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border: 3px solid #222222;
+  border-radius: 5px;
+  background-image: linear-gradient(45deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background-size: 300%;
+  animation: animate-border 7s ease infinite;
+}
+
+@keyframes animate-border {
+
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%;
+  }
+
+  100% {
+    background-position: 0%;
+  }
+
+}
+
+.row {
+  display: flex;
+}
+
+.key {
+  font-size: 1.2em;
+  width: 60px;
+  height: 60px;
+  background-color: #323232;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 5px 0 0.05px rgba(0, 0, 0, 0.6);
+  margin: 4px;
+  margin-bottom: 8px;
+  color: #b7b7b7;
+  transition: 0.5s all ease;
+}
+
+.key:hover,
+.key.active {
+  background-color: #fafafa;
+  transform: scaleY(0.98) translateY(1px);
+  box-shadow: 0 4px 0 0.04px rgba(0, 0, 0, 0.12);
+  color: #707070;
+}
+
+.key.remove {
+  animation: keys_animation 0.5s forwards;
+}
+
+@keyframes keys_animation {
+
+  0% {
+      background-color: #fafafa;
+      color: #707070;
+      transform: scaleY(0.98) translateY(1px);
+      box-shadow: 0 4px 0 0.04px rgba(0, 0, 0, 0.12);
+    }
+
+    100% {
+      background-color: #323232;
+      color: #b7b7b7;
+      box-shadow: 0 5px 0 0.05px rgba(0, 0, 0, 0.6);
+    }
+
+}
+
+.key.upper {
+  text-transform: uppercase;
+}
+
+.space_key {
+  max-width: 468px;
+  width: 100%;
+}
+
+.backspace_key {
+  width: 120px;
+}
+
+.tab_key,
+.delete_key {
+  width: 90px;
+}
+
+.enter_key {
+  width: 126px;
+}
+
+.shift_left,
+.shift_right,
+.caps-lock_key {
+  width: 126px;
+}
