@@ -138,7 +138,6 @@ for (let i = 0; i <= ROWS.length - 1; i += 1) {
   }
 }
 
-const rows = [...keyboard.getElementsByClassName("row")];
 const key = [...keyboard.getElementsByClassName("key")];
 const spaceKey = keyboard.querySelector("button[keyName='']");
 const shiftLeftKey = keyboard.querySelectorAll("button[keyName='Shift']")[0];
@@ -163,6 +162,94 @@ enterKey.classList.add(CssClasses.ENTER_KEY);
 deleteKey.classList.add(CssClasses.DELETE_KEY);
 tabKey.classList.add(CssClasses.TAB_KEY);
 backspaceKey.classList.add(CssClasses.BACKSPACE_KEY);
+
+let chars = [];
+
+key.forEach((btn) => {
+  btn.addEventListener("mousedown", () => {
+    btn.classList.toggle("active");
+    if (btn.innerText.length === 1) {
+      textarea.value += btn.innerText;
+      chars = textarea.value.split("");
+    }
+  });
+  btn.addEventListener("mouseup", () => {
+    btn.classList.remove("active");
+  });
+  setTimeout(() => {
+    btn.classList.remove("active");
+  }, 200);
+});
+
+backspaceKey.addEventListener("click", () => {
+  chars.pop();
+  textarea.value = chars.join("");
+});
+
+deleteKey.addEventListener("click", () => {
+  chars.shift();
+  textarea.value = chars.join("");
+});
+
+spaceKey.addEventListener("click", () => {
+  chars.push(" ");
+  textarea.value = chars.join("");
+});
+
+tabKey.addEventListener("click", () => {
+  chars.push("  ");
+  textarea.value = chars.join("");
+});
+
+capsLockKey.addEventListener("click", () => {
+  key.forEach((btn) => {
+    if (btn.innerText.length === 1) {
+      btn.classList.toggle("upper");
+      if (btn.classList.contains("upper")) {
+        capsLockKey.classList.add("active");
+      } else {
+        capsLockKey.classList.remove("active");
+      }
+    }
+  });
+});
+
+shiftLeftKey.addEventListener("mousedown", () => {
+  key.forEach((btn) => {
+    if (btn.innerText.length === 1) {
+      btn.classList.add("upper");
+    }
+  });
+});
+
+shiftLeftKey.addEventListener("mouseup", () => {
+  key.forEach((btn) => {
+    if (btn.innerText.length === 1) {
+      btn.classList.remove("upper");
+    }
+  });
+});
+
+shiftRightKey.addEventListener("mousedown", () => {
+  key.forEach((btn) => {
+    if (btn.innerText.length === 1) {
+      btn.classList.add("upper");
+    }
+  });
+});
+
+shiftRightKey.addEventListener("mouseup", () => {
+  key.forEach((btn) => {
+    if (btn.innerText.length === 1) {
+      btn.classList.remove("upper");
+    }
+  });
+});
+
+enterKey.addEventListener("click", () => {
+  chars.push("\n");
+  textarea.value = chars.join("");
+});
 
 window.addEventListener("keydown", (e) => {
   for (let i = 0; i < key.length; i += 1) {
