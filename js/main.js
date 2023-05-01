@@ -15,6 +15,8 @@ const CssClasses = {
   ENTER_KEY: "enter_key",
   SHIFT_LEFT: "shift_left",
   SHIFT_RIGHT: "shift_right",
+  CTRL_LEFT: "ctrl_left",
+  CTRL_RIGHT: "ctrl_right",
 };
 
 const ROWS = [
@@ -107,13 +109,32 @@ const wrapper = createElement("wrapper", CssClasses.WRAPPER, section);
 const text = createElement("p", CssClasses.TEXT, section);
 const keyboard = createElement("section", CssClasses.KEYBOARD, wrapper);
 
+title.textContent = "Virtual keyboard";
+text.textContent = "It's developed in Windows OS";
+
+textarea.focus();
+
 for (let i = 0; i <= ROWS.length - 1; i += 1) {
   const row = createElement("div", CssClasses.ROW, keyboard);
   const countKeys = Object.keys(ROWS[i]).length;
   for (let j = 0; j <= countKeys - 1; j += 1) {
     const keyButton = createElement("button", CssClasses.KEY, row);
     keyButton.textContent = `${ROWS[i][j]}`;
-    keyButton.setAttribute("keyName", `${ROWS[i][j]}`);
+    if (`${ROWS[i][j]}` === "Ctrl") {
+      keyButton.setAttribute("keyName", "Control");
+    } else if (`${ROWS[i][j]}` === "Win") {
+      keyButton.setAttribute("keyName", "Meta");
+    } else if (`${ROWS[i][j]}` === "↑") {
+      keyButton.setAttribute("keyName", "ArrowUp");
+    } else if (`${ROWS[i][j]}` === "↓") {
+      keyButton.setAttribute("keyName", "ArrowDown");
+    } else if (`${ROWS[i][j]}` === "←") {
+      keyButton.setAttribute("keyName", "ArrowLeft");
+    } else if (`${ROWS[i][j]}` === "→") {
+      keyButton.setAttribute("keyName", "ArrowRight");
+    } else {
+      keyButton.setAttribute("keyName", `${ROWS[i][j]}`);
+    }
   }
 }
 
@@ -127,19 +148,105 @@ const enterKey = keyboard.querySelector("button[keyName='Enter']");
 const deleteKey = keyboard.querySelector("button[keyName='Delete']");
 const tabKey = keyboard.querySelector("button[keyName='Tab']");
 const backspaceKey = keyboard.querySelector("button[keyName='Backspace']");
-const ctrlLeftKey = keyboard.querySelectorAll("button[keyName='Ctrl']")[0];
-const ctrlRightKey = keyboard.querySelectorAll("button[keyName='Ctrl']")[1];
+const ctrlLeftKey = keyboard.querySelectorAll("button[keyName='Control']")[0];
+const ctrlRightKey = keyboard.querySelectorAll("button[keyName='Control']")[1];
 const altLeftKey = keyboard.querySelectorAll("button[keyName='Alt']")[0];
 const altRightKey = keyboard.querySelectorAll("button[keyName='Alt']")[1];
 
 spaceKey.classList.add(CssClasses.SPACE_KEY);
 shiftLeftKey.classList.add(CssClasses.SHIFT_LEFT);
 shiftRightKey.classList.add(CssClasses.SHIFT_RIGHT);
+ctrlLeftKey.classList.add(CssClasses.CTRL_LEFT);
+ctrlRightKey.classList.add(CssClasses.CTRL_RIGHT);
 capsLockKey.classList.add(CssClasses.CAPS_LOCK_KEY);
 enterKey.classList.add(CssClasses.ENTER_KEY);
 deleteKey.classList.add(CssClasses.DELETE_KEY);
 tabKey.classList.add(CssClasses.TAB_KEY);
 backspaceKey.classList.add(CssClasses.BACKSPACE_KEY);
 
-title.textContent = "Virtual keyboard";
-text.textContent = "It's developed in Windows OS";
+window.addEventListener("keydown", (e) => {
+  for (let i = 0; i < key.length; i += 1) {
+    if (e.key === key[i].getAttribute("keyName") || e.key === key[i].getAttribute("keyName").toUpperCase()) {
+      key[i].classList.toggle("active");
+    }
+    if (e.code === "Space") {
+      spaceKey.classList.toggle("active");
+    }
+    if (e.code === "ShiftLeft") {
+      shiftRightKey.classList.remove("active");
+      if (key[i].innerText.length === 1) {
+        key[i].classList.add("upper");
+      }
+    }
+    if (e.code === "ShiftRight") {
+      shiftLeftKey.classList.remove("active");
+      if (key[i].innerText.length === 1) {
+        key[i].classList.add("upper");
+      }
+    }
+    if (e.code === "ControlLeft") {
+      ctrlRightKey.classList.remove("active");
+    }
+    if (e.code === "ControlRight") {
+      ctrlLeftKey.classList.remove("active");
+    }
+    if (e.code === "AltLeft") {
+      altRightKey.classList.remove("active");
+    }
+    if (e.code === "AltRight") {
+      altLeftKey.classList.remove("active");
+    }
+    if (e.code === "CapsLock") {
+      capsLockKey.classList.toggle("active");
+      if (key[i].innerText.length === 1) {
+        key[i].classList.toggle("upper");
+      }
+    }
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  for (let i = 0; i < key.length; i += 1) {
+    if (e.key === key[i].getAttribute("keyName") || e.key === key[i].getAttribute("keyName").toUpperCase()) {
+      key[i].classList.remove("active");
+      key[i].classList.toggle("remove");
+    }
+    if (e.code === "Space") {
+      spaceKey.classList.remove("active");
+      spaceKey.classList.toggle("remove");
+    }
+    if (e.code === "ShiftLeft") {
+      shiftRightKey.classList.remove("active");
+      shiftRightKey.classList.remove("remove");
+      if (key[i].innerText.length === 1) {
+        key[i].classList.remove("upper");
+      }
+    }
+    if (e.code === "ShiftRight") {
+      shiftLeftKey.classList.remove("active");
+      shiftLeftKey.classList.remove("remove");
+      if (key[i].innerText.length === 1) {
+        key[i].classList.remove("upper");
+      }
+    }
+    if (e.code === "ControlLeft") {
+      ctrlRightKey.classList.remove("active");
+      ctrlRightKey.classList.remove("remove");
+    }
+    if (e.code === "ControlRight") {
+      ctrlLeftKey.classList.remove("active");
+      ctrlLeftKey.classList.remove("remove");
+    }
+    if (e.code === "AltLeft") {
+      altRightKey.classList.remove("active");
+      altRightKey.classList.remove("remove");
+    }
+    if (e.code === "AltRight") {
+      altLeftKey.classList.remove("active");
+      altLeftKey.classList.remove("remove");
+    }
+    setTimeout(() => {
+      key[i].classList.remove("remove");
+    }, 200);
+  }
+});

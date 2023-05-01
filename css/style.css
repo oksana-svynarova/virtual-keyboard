@@ -83,10 +83,13 @@
   margin: 4px;
   margin-bottom: 8px;
   color: #b7b7b7;
-  transition: 0.5s all ease;
+  transition: 0.2s all ease;
 }
 
-.key:hover,
+.key:hover {
+  background-color: #5a5a5a;
+}
+
 .key.active {
   background-color: #fafafa;
   transform: scaleY(0.98) translateY(1px);
@@ -95,7 +98,7 @@
 }
 
 .key.remove {
-  animation: keys_animation 0.5s forwards;
+  animation: keys_animation 0.2s forwards;
 }
 
 @keyframes keys_animation {
